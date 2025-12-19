@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Geladinho da Vovó</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="card">
+
+      <h1 class="brand">Geladinho da Vovó 🍓</h1>
+      <p class="subtitle">Escolha com carinho ❤️</p>
+
+      <input id="nome" class="input" placeholder="Seu nome">
+
+      <div id="itens"></div>
+
+      <button id="btnAdd" class="btn btn-add">+ Adicionar sabor</button>
+
+      <button id="btnCalcular" class="btn btn-primary">Calcular</button>
+
+      <div id="resumo" class="hidden">
+        <h2>Total: R$ <span id="total">0.00</span></h2>
+
+        <div class="pix-box">
+          <p id="pix">423.291.578-86</p>
+          <button id="btnCopiar" class="btn btn-secondary">Copiar PIX</button>
+        </div>
+
+        <button id="btnPagar" class="btn btn-primary">Já paguei</button>
+      </div>
+
+      <div id="thanks" class="thanks hidden">
+        <h2>Obrigado pela compra 💖</h2>
+        <p>Seu pedido foi registrado com sucesso!</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

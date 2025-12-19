@@ -1,0 +1,209 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, Arial, sans-serif;
+
+  /* Degradê rosa + branco */
+  background: linear-gradient(
+    180deg,
+    #ff9fb5 0%,
+    #ffd1dc 40%,
+    #ffffff 100%
+  );
+
+  display: flex;
+  justify-content: center;
+
+  /* 👇 CENTRALIZAÇÃO INTELIGENTE */
+  align-items: flex-start;
+
+  /* Espaço superior confortável */
+  padding: clamp(32px, 8vh, 96px) 16px;
+}
+
+
+.wrap {
+  width: 100%;
+  max-width: 420px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.brand {
+  text-align: center;
+  margin: 0;
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+.item {
+  background: #ffe4ea;
+  padding: 14px;
+  border-radius: 18px;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* 👈 separação real */
+}
+
+/* Linha do sabor */
+.item-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Select do sabor */
+.item-row select {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: none;
+  background: #ffffff;
+  font-size: 15px;
+}
+
+/* Quantidade separada visualmente */
+.item .quantidade,
+.item input[type="number"] {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: none;
+  background: #fff7fa; /* 👈 tom diferente */
+  font-size: 15px;
+}
+
+
+.btn-remove {
+  width: 44px;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  background: #fff;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 16px;
+  border: none;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.btn-add {
+  background: #f08aac;
+  color: #fff;
+}
+
+.btn-primary {
+  background: #e56b93;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #f08aac;
+  color: #fff;
+}
+
+.pix-box {
+  background: #ffeef2;
+  border-radius: 16px;
+  padding: 12px;
+  margin-top: 12px;
+}
+
+.hidden {
+  display: none;
+}
+
+.thanks {
+  text-align: center;
+  margin-top: 20px;
+  animation: fade .3s ease;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: scale(.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: clamp(40px, 10vh, 80px);
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .wrap {
+    width: 100%;
+  }
+
+  .card {
+    width: 100%;
+    border-radius: 22px;
+  }
+}
+
+.card {
+  animation: cardEnter .4s ease;
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+.item {
+  animation: itemEnter .25s ease;
+}
+
+@keyframes itemEnter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+button {
+  transition: transform .15s ease, box-shadow .15s ease, opacity .15s;
+}
+
+button:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
+
+.input {
+  margin-bottom: 18px;
+}
