@@ -1,7 +1,7 @@
 // ===============================
 // CONFIGURAÇÃO
 // ===============================
-const API_URL = "https://script.google.com/macros/s/AKfycbx2IMVWY690_UunhbAOCS7uCVx05O8T2Vyn2AtKrKV5X9Ywjfr23c03iDwr9eAqnpIFiw/exec"; // termina com /exec
+const API_URL = "https://script.google.com/macros/s/AKfycbwgpIU1eAYLnbJmVTbcNf4a0uVEe6wdWBszgey-YMAc2AqnnDe6GRSGwb0J0htnnEDukw/exec";
 const PRECO_TRADICIONAL = 3;
 const PRECO_GOURMET = 4;
 const LIMITE_SABORES = 2;
@@ -45,10 +45,7 @@ function adicionarSabor() {
     <input type="number" class="quantidade" min="1" value="1">
   `;
 
-  div.querySelector(".btn-remove").addEventListener("click", () => {
-    div.remove();
-  });
-
+  div.querySelector(".btn-remove").onclick = () => div.remove();
   container.appendChild(div);
 }
 
@@ -66,7 +63,7 @@ function calcularPedido() {
 
   let total = 0;
 
-  for (let item of itens) {
+  for (const item of itens) {
     const sabor = item.querySelector(".sabor").value;
     const quantidade = Number(item.querySelector(".quantidade").value);
 
@@ -75,10 +72,10 @@ function calcularPedido() {
       return;
     }
 
-    const valorUnitario =
+    const valor =
       sabor === "Gourmet" ? PRECO_GOURMET : PRECO_TRADICIONAL;
 
-    total += valorUnitario * quantidade;
+    total += valor * quantidade;
   }
 
   totalAtual = total;
@@ -96,7 +93,7 @@ function copiarPix() {
 }
 
 // ===============================
-// FINALIZAR PEDIDO (JÁ PAGUEI)
+// FINALIZAR PEDIDO
 // ===============================
 async function finalizarPedido() {
   const nome = document.getElementById("nome").value.trim();
@@ -110,49 +107,36 @@ async function finalizarPedido() {
   const itens = [];
   let total = 0;
 
-  itensDOM.forEach(item => {
+  for (const item of itensDOM) {
     const sabor = item.querySelector(".sabor").value;
     const quantidade = Number(item.querySelector(".quantidade").value);
+
+    if (!sabor || quantidade <= 0) {
+      alert("Preencha os dados para continuar");
+      return;
+    }
+
     const valorUnitario =
       sabor === "Gourmet" ? PRECO_GOURMET : PRECO_TRADICIONAL;
 
-    const totalItem = valorUnitario * quantidade;
+    total += valorUnitario * quantidade;
+    itens.push({ sabor, quantidade });
+  }
 
-    itens.push({
-      sabor,
-      quantidade
-    });
-
-    total += totalItem;
+  // ENVIA E NÃO ESPERA RESPOSTA
+  fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify({ nome, itens, total })
   });
 
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        nome,
-        itens,
-        total
-      })
-    });
+  // UX IMEDIATA (SEM ERRO)
+  setTimeout(() => {
+    document.getElementById("resumo").classList.add("hidden");
+    document.getElementById("thanks").classList.remove("hidden");
+  }, 1000);
 
-    // Feedback rápido
-    setTimeout(() => {
-      document.getElementById("resumo").classList.add("hidden");
-      document.getElementById("thanks").classList.remove("hidden");
-    }, 200);
-
-    // Reset após 5 segundos
-    setTimeout(() => {
-      location.reload();
-    }, 4000);
-
-  } catch (erro) {
-    alert("Erro ao registrar pedido. Tente novamente.");
-    console.error(erro);
-  }
+  setTimeout(() => {
+    location.reload();
+  }, 3000);
 }
+
